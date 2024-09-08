@@ -6,16 +6,17 @@ NULLABLE = {"blank": "True", "null": "True"}
 class EmailClient(models.Model):
     """ данные для рассылки """
 
-    client_name = models.CharField(max_length=255, verbose_name='Ф. И. О.')
+    name = models.CharField(max_length=255, verbose_name='Ф. И. О.')
     email = models.EmailField(verbose_name='Email получателя')
-    comment = models.TextField(verbose_name='Комментарий к клиенту', **NULLABLE)
+    comment = models.TextField(verbose_name='Комментарий', **NULLABLE)
 
     def __str__(self):
-        return f'{self.client_name} {self.email}'
+        return f'{self.name} {self.email}'
 
     class Meta:
         verbose_name = 'Получатель'
         verbose_name_plural = 'Получатели'
+        ordering = ['name', ]
 
 
 class Message(models.Model):
@@ -46,7 +47,6 @@ class Mailings(models.Model):
         ('DAILY', 'Ежедневно'),
         ('WEEKLY', 'Еженедельно'),
         ('MONTHLY', 'Ежемесячно'),
-        ('YEARLY', 'Ежегодно'),
     )
 
     launch_at = models.DateTimeField(
@@ -72,7 +72,12 @@ class Mailings(models.Model):
         verbose_name='Статус рассылки',
     )
     message = models.ForeignKey(Message, on_delete=models.CASCADE, verbose_name='Сообщение')
-    email_client = models.ForeignKey(EmailClient, on_delete=models.CASCADE, verbose_name='Список клиентов')
+    email_client = models.ManyToManyField(EmailClient, verbose_name='Получатели')
+
+    def get_email_client(self):
+        """ Возвращает список получателей в виде строки """
+        return ",".join([str(p) for p in self.email_client.all()])
+
 
     def __str__(self):
         return f'Рассылка: {self.pk}'
@@ -80,3 +85,4 @@ class Mailings(models.Model):
     class Meta:
         verbose_name = 'Рассылка'
         verbose_name_plural = 'Рассылки'
+        ordering = ['launch_at', ]

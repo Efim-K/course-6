@@ -16,17 +16,17 @@ class MessageAdmin(admin.ModelAdmin):
 
 @admin.register(EmailClient)
 class EmailClientAdmin(admin.ModelAdmin):
-    list_display = ("id", "client_name", "email", "comment")
-    list_filter = ("client_name", "email",)
+    list_display = ("id", "name", "email", "comment")
+    list_filter = ("name", "email",)
     search_fields = (
-        "client_name",
+        "name",
         "email",
     )
 
 
 @admin.register(Mailings)
 class MailingsAdmin(admin.ModelAdmin):
-    list_display = ("id", "launch_at", "completed_at", "periodicity", "status", "message", "email_client")
+    list_display = ("id", "launch_at", "completed_at", "periodicity", "status", "message", "get_email_client")
     list_filter = ("launch_at", "completed_at", "periodicity", "status", "message")
     search_fields = (
         "launch_at",
