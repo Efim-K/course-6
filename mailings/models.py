@@ -14,8 +14,8 @@ class EmailClient(models.Model):
         return f'{self.client_name} {self.email}'
 
     class Meta:
-        verbose_name = 'Клиент сервиса'
-        verbose_name_plural = 'Клиенты сервиса'
+        verbose_name = 'Получатель'
+        verbose_name_plural = 'Получатели'
 
 
 class Message(models.Model):
@@ -42,9 +42,11 @@ class Mailings(models.Model):
         ('COMPLETED', 'завершена'),
     )
     MAILINGS_PERIODICITY = (
+        ('ONCE', 'Однократно'),
         ('DAILY', 'Ежедневно'),
         ('WEEKLY', 'Еженедельно'),
         ('MONTHLY', 'Ежемесячно'),
+        ('YEARLY', 'Ежегодно'),
     )
 
     launch_at = models.DateTimeField(
@@ -59,7 +61,7 @@ class Mailings(models.Model):
     periodicity = models.CharField(
         max_length=255,
         choices=MAILINGS_PERIODICITY,
-        default='MONTHLY',
+        default='ONCE',
         verbose_name='Периодичность'
     )
 
@@ -69,8 +71,8 @@ class Mailings(models.Model):
         default='CREATED',
         verbose_name='Статус рассылки',
     )
-    Message = models.ForeignKey(Message, on_delete=models.CASCADE, verbose_name='Сообщение')
-    EmailClient = models.ManyToManyField(EmailClient, verbose_name='Список клиентов')
+    message = models.ForeignKey(Message, on_delete=models.CASCADE, verbose_name='Сообщение')
+    email_client = models.ForeignKey(EmailClient, on_delete=models.CASCADE, verbose_name='Список клиентов')
 
     def __str__(self):
         return f'Рассылка: {self.pk}'
