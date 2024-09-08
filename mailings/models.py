@@ -78,7 +78,6 @@ class Mailings(models.Model):
         """ Возвращает список получателей в виде строки """
         return ",".join([str(p) for p in self.email_client.all()])
 
-
     def __str__(self):
         return f'Рассылка: {self.pk}'
 
