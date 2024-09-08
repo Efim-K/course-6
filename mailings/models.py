@@ -59,14 +59,14 @@ class Mailings(models.Model):
     periodicity = models.CharField(
         max_length=255,
         choices=MAILINGS_PERIODICITY,
-        default=MONTHLY,
+        default='MONTHLY',
         verbose_name='Периодичность'
     )
 
     status = models.CharField(
         max_length=255,
         choices=MAILINGS_CHOICES,
-        default=CREATED,
+        default='CREATED',
         verbose_name='Статус рассылки',
     )
     Message = models.ForeignKey(Message, on_delete=models.CASCADE, verbose_name='Сообщение')
