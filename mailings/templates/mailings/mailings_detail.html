@@ -6,11 +6,11 @@
     <div class="d-inline-flex gap-2 mb-5">
         <a class="btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'mailings:mailings_list' %}" role="button">Назад</a>
         <a class="btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'mailings:mailings_update' object.pk %}" role="button">Редактировать</a>
-        <a class="btn btn-primary btn-lg px-4 rounded-pill" href="#" role="button">
-            {% if object.is_active %}
-                Деактивировать
+        <a class="btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'mailings:mailings_view' object.pk %}" role="button">
+            {% if object.get_revers_active %}
+            Деактивировать
             {% else %}
-                Активировать
+            Активировать
             {% endif %}
         </a>
         <a class="btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'mailings:mailings_delete' object.pk %}" role="button">Удалить</a>
@@ -25,6 +25,11 @@
             <h4 class="text-body-emphasis text-left"> Дата завершения рассылки: {{ object.completed_at }}</h4>
             {% endif %}
             <h4 class="text-body-emphasis text-left"> Периодичность рассылки: {{ object.get_periodicity_display }}</h4>
+            <h4 class="text-body-emphasis text-left"> Статус активности:
+                {% if object.is_active %} Активна
+                {% else %} Не активна
+                {% endif %}
+            </h4>
         </div>
     </div>
     <div class="p-5 text-center rounded-3">

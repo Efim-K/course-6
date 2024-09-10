@@ -25,7 +25,7 @@ class MailingsCreateView(CreateView):
     """
     Создает новую рассылку
     """
-    fields = ('launch_at', 'completed_at', 'periodicity', 'status', 'message', 'email_client')
+    fields = ('launch_at', 'completed_at', 'periodicity', 'status', 'message', 'email_client', 'is_active')
     success_url = reverse_lazy('mailings:mailings_list')
 
 
@@ -34,7 +34,7 @@ class MailingsUpdateView(UpdateView):
     Редактирует существующую рассылку
     """
     model = Mailings
-    fields = ('launch_at', 'completed_at', 'periodicity', 'status', 'message', 'email_client')
+    fields = ('launch_at', 'completed_at', 'periodicity', 'status', 'message', 'email_client', 'is_active')
     success_url = reverse_lazy('mailings:mailings_list')
 
     def get_success_url(self):

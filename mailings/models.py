@@ -73,10 +73,21 @@ class Mailings(models.Model):
     )
     message = models.ForeignKey(Message, on_delete=models.CASCADE, verbose_name='Сообщение')
     email_client = models.ManyToManyField(EmailClient, verbose_name='Получатели')
+    is_active = models.BooleanField(default=True, verbose_name='Активная рассылка')
 
     def get_email_client(self):
         """ Возвращает список получателей в виде строки """
         return ",".join([str(p) for p in self.email_client.all()])
+
+    def get_revers_active(self):
+        """ Возвращает инвертированное состояние активности рассылки """
+        try:
+            mailings = Mailings.objects.get(pk=self.pk)
+            mailings.is_active = not mailings.is_active
+            mailings.save()
+            return mailings.is_active
+        except Mailings.DoesNotExist:
+            return 'Рассылки с таким ID не существует!'
 
     def __str__(self):
         return f'Рассылка: {self.pk}'
