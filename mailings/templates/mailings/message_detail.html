@@ -1,0 +1,46 @@
+{% extends "mailings/base.html" %}
+
+{% block content %}
+
+<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" >
+
+    <a href="/"
+       class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
+        <svg class="bi pe-none me-2" width="30" height="24">
+            <use xlink:href="#mailbox"/>
+        </svg>
+        <span class="fs-2 fw-semibold">Cообщение для рассылки</span>
+    </a>
+    <div class="text-bg-light p-3">
+        <a class="btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'mailings:message_list' %}" role="button">Назад</a>
+        <a class="btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'mailings:message_update' object.pk %}" role="button">Редактировать</a>
+        <a class="btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'mailings:message_delete' object.pk %}" role="button">Удалить</a>
+        <a class="btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'mailings:message_create' %}" role="button">Создать новое сообщение</a>
+    </div>
+    <div class="list-group list-group-flush border-bottom scrollarea">
+        <a href="{% url 'mailings:message_view' object.pk %}" class="list-group-item list-group-item-action active py-3 lh-sm" aria-current="true">
+            <div class="d-flex w-100 align-items-center justify-content-between">
+                <h1><strong class="mb-1">Тема: {{ object.message_title }}</strong></h1>
+
+                <small>
+                    <svg class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="#chat-right-text"/>
+                    </svg>
+                </small>
+            </div>
+            <div class="col-10 mb-1 small"><h2>{{ object.message_text }}</h2></div>
+        </a>
+    </div>
+
+</div>
+<div class="b-example-divider b-example-vr"></div>
+
+
+
+
+
+{% endblock %}
+
+
+
+
