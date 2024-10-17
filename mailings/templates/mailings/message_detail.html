@@ -2,14 +2,14 @@
 
 {% block content %}
 
-<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" >
+<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 90%;">
 
     <a href="/"
        class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
         <svg class="bi pe-none me-2" width="30" height="24">
             <use xlink:href="#mailbox"/>
         </svg>
-        <span class="fs-2 fw-semibold">Cообщение для рассылки</span>
+        <span class="fs-2 fw-semibold"> Cообщение для рассылки</span>
     </a>
     <div class="text-bg-light p-3">
         <a class="btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'mailings:message_list' %}" role="button">Назад</a>
