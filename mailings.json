@@ -1,0 +1,160 @@
+[
+{
+    "model": "mailings.emailclient",
+    "pk": 2,
+    "fields": {
+        "name": "Ефим",
+        "email": "nastolka@rambler.ru",
+        "comment": "ученик"
+    }
+},
+{
+    "model": "mailings.emailclient",
+    "pk": 3,
+    "fields": {
+        "name": "Петр",
+        "email": "petr@petr.ru",
+        "comment": "Петр"
+    }
+},
+{
+    "model": "mailings.emailclient",
+    "pk": 4,
+    "fields": {
+        "name": "Semen",
+        "email": "semen@semen.ru",
+        "comment": "ученик"
+    }
+},
+{
+    "model": "mailings.message",
+    "pk": 1,
+    "fields": {
+        "message_title": "Привет",
+        "message_text": "Приветствуем нового пользователя"
+    }
+},
+{
+    "model": "mailings.message",
+    "pk": 2,
+    "fields": {
+        "message_title": "Черная пятница",
+        "message_text": "Скидки в пятницу 20%\r\nЧерная пятница или Black Friday — праздник для шопоголиков и одна из главных распродаж, во время которой скидки доходят даже до 90% и распространяются на все категории товаров: бытовую технику, одежду, смартфоны, детские товары и многое другое."
+    }
+},
+{
+    "model": "mailings.message",
+    "pk": 3,
+    "fields": {
+        "message_title": "С новым годом!",
+        "message_text": "С новым Годом!"
+    }
+},
+{
+    "model": "mailings.message",
+    "pk": 4,
+    "fields": {
+        "message_title": "Скидки постоянным клиентам и подписчикам, которые с нами больше года",
+        "message_text": "Следующая неделя скидки 30%"
+    }
+},
+{
+    "model": "mailings.message",
+    "pk": 5,
+    "fields": {
+        "message_title": "Новая тема",
+        "message_text": "Привет, привет!"
+    }
+},
+{
+    "model": "mailings.mailings",
+    "pk": 1,
+    "fields": {
+        "launch_at": "2024-09-08T10:46:46Z",
+        "completed_at": null,
+        "periodicity": "ONCE",
+        "status": "CREATED",
+        "message": 1,
+        "is_active": false,
+        "email_client": [
+            4,
+            2
+        ]
+    }
+},
+{
+    "model": "mailings.mailings",
+    "pk": 2,
+    "fields": {
+        "launch_at": "2024-09-25T09:23:00Z",
+        "completed_at": "2025-01-01T16:56:56Z",
+        "periodicity": "MONTHLY",
+        "status": "CREATED",
+        "message": 2,
+        "is_active": true,
+        "email_client": [
+            4
+        ]
+    }
+},
+{
+    "model": "mailings.mailings",
+    "pk": 4,
+    "fields": {
+        "launch_at": "2024-10-01T15:12:09Z",
+        "completed_at": "2024-10-06T15:13:15Z",
+        "periodicity": "DAILY",
+        "status": "CREATED",
+        "message": 4,
+        "is_active": true,
+        "email_client": [
+            2
+        ]
+    }
+},
+{
+    "model": "mailings.mailings",
+    "pk": 5,
+    "fields": {
+        "launch_at": "2023-11-12T00:00:00Z",
+        "completed_at": "2024-12-12T00:00:00Z",
+        "periodicity": "ONCE",
+        "status": "CREATED",
+        "message": 1,
+        "is_active": true,
+        "email_client": [
+            2
+        ]
+    }
+},
+{
+    "model": "mailings.mailings",
+    "pk": 6,
+    "fields": {
+        "launch_at": "2023-11-12T00:00:00Z",
+        "completed_at": null,
+        "periodicity": "ONCE",
+        "status": "CREATED",
+        "message": 3,
+        "is_active": false,
+        "email_client": [
+            4
+        ]
+    }
+},
+{
+    "model": "mailings.mailings",
+    "pk": 7,
+    "fields": {
+        "launch_at": "2023-11-12T00:00:00Z",
+        "completed_at": "2024-12-12T00:00:00Z",
+        "periodicity": "DAILY",
+        "status": "CREATED",
+        "message": 3,
+        "is_active": true,
+        "email_client": [
+            3
+        ]
+    }
+}
+]
