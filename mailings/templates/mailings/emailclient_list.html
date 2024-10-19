@@ -1,0 +1,47 @@
+{% extends "mailings/base.html" %}
+
+{% block content %}
+
+<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 88%;">
+
+    <a href="/"
+       class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
+        <svg class="bi pe-none me-2" width="30" height="24">
+            <use xlink:href="#person-vcard-fill"/>
+        </svg>
+        <span class="fs-2 fw-semibold">Список клиентов</span>
+    </a>
+    <div class="text-bg-light p-3">
+        <a class="btn btn-primary" href="{% url 'mailings:emailclient_create' %}" role="button">Создать нового
+            клиента</a>
+    </div>
+    {% for object in object_list %}
+    <div class="list-group list-group-flush border-bottom scrollarea">
+        <a href="#"
+           class="list-group-item list-group-item-action active py-3 lh-sm" aria-current="true">
+            <div class="d-flex w-100 align-items-left justify-content-between">
+                <div class="list-group">
+                    <h4><strong class="mb-1">ФИО клиента: {{ object.name }}</strong></h4>
+                    <h4><strong class="mb-1">Почта клиента: {{ object.email }}</strong></h4>
+                    <h5><strong class="mb-1">Комментарий: {{ object.comment }}</strong></h5>
+                </div>
+
+
+            </div>
+            <div class="row row-cols-6 row-cols-lg-6 g-2" style="width: 100%;">
+                <a class="btn btn-primary px-4 rounded-pill"
+                   href="{% url 'mailings:emailclient_update' object.pk %}" role="button">Редактировать</a>
+                <a class="btn btn-primary px-4 rounded-pill"
+                   href="{% url 'mailings:emailclient_delete' object.pk %}" role="button">Удалить</a>
+            </div>
+            <hr>
+
+        </a>
+    </div>
+    {% endfor %}
+
+</div>
+<div class="b-example-divider b-example-vr"></div>
+
+
+{% endblock %}

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from mailings.models import Mailings, Message
+from mailings.models import Mailings, Message, EmailClient
 
 
 # Create your views here.
@@ -90,4 +90,42 @@ class MessageDeleteView(DeleteView):
     success_url = reverse_lazy('mailings:message_list')
 
 
+# class EmailClientDetailView(DetailView):
+#     """
+#     Выводит детальную информацию о клиенте почты
+#     """
+#     model = EmailClient
+#     template_name = 'mailings/emailclient_detail.html'
 
+
+class EmailClientListView(ListView):
+    """
+    Выводит список всех клиентов почты
+    """
+    model = EmailClient
+
+
+class EmailClientCreateView(CreateView):
+    """
+    Создает нового клиента почты
+    """
+    model = EmailClient
+    fields = ('name', 'email', 'comment',)
+    success_url = reverse_lazy('mailings:emailclient_list')
+
+
+class EmailClientUpdateView(UpdateView):
+    """
+    Редактирует существующего клиента почты
+    """
+    model = EmailClient
+    fields = ('name', 'email', 'comment',)
+    success_url = reverse_lazy('mailings:emailclient_list')
+
+
+class EmailClientDeleteView(DeleteView):
+    """
+    Удаляет существующего клиента почты
+    """
+    model = EmailClient
+    success_url = reverse_lazy('mailings:emailclient_list')
