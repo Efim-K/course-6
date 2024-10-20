@@ -19,7 +19,7 @@ class EmailClient(models.Model):
     class Meta:
         verbose_name = 'Получатель'
         verbose_name_plural = 'Получатели'
-        ordering = ['name', ]
+        ordering = ['owner', 'name', ]
 
 
 class Message(models.Model):
@@ -35,6 +35,7 @@ class Message(models.Model):
     class Meta:
         verbose_name = 'Сообщение'
         verbose_name_plural = 'Сообщения'
+        ordering = ['owner', 'message_title', ]
 
 
 # Create your models here.
@@ -101,4 +102,4 @@ class Mailings(models.Model):
     class Meta:
         verbose_name = 'Рассылка'
         verbose_name_plural = 'Рассылки'
-        ordering = ['launch_at', ]
+        ordering = ['owner', 'launch_at', ]
