@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 NULLABLE = {"blank": "True", "null": "True"}
 
 
@@ -9,6 +11,7 @@ class EmailClient(models.Model):
     name = models.CharField(max_length=255, verbose_name='Ф. И. О.')
     email = models.EmailField(verbose_name='Email получателя')
     comment = models.TextField(verbose_name='Комментарий', **NULLABLE)
+    owner = models.ForeignKey(User, verbose_name="Владелец", on_delete=models.SET_NULL, **NULLABLE)
 
     def __str__(self):
         return f'{self.name} {self.email}'
@@ -24,6 +27,7 @@ class Message(models.Model):
 
     message_title = models.CharField(max_length=255, verbose_name='Тема сообщения')
     message_text = models.TextField(verbose_name='Текст сообщения')
+    owner = models.ForeignKey(User, verbose_name="Владелец", on_delete=models.SET_NULL, **NULLABLE)
 
     def __str__(self):
         return self.message_title
@@ -74,6 +78,8 @@ class Mailings(models.Model):
     message = models.ForeignKey(Message, on_delete=models.CASCADE, verbose_name='Сообщение')
     email_client = models.ManyToManyField(EmailClient, verbose_name='Получатели')
     is_active = models.BooleanField(default=True, verbose_name='Активная рассылка')
+
+    owner = models.ForeignKey(User, verbose_name="Владелец", on_delete=models.SET_NULL, **NULLABLE)
 
     def get_email_client(self):
         """ Возвращает список получателей в виде строки """
