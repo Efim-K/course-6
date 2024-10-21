@@ -82,6 +82,10 @@ class Mailings(models.Model):
 
     owner = models.ForeignKey(User, verbose_name="Владелец", on_delete=models.SET_NULL, **NULLABLE)
 
+
+
+
+
     def get_email_client(self):
         """ Возвращает список получателей в виде строки """
         return ",".join([str(p) for p in self.email_client.all()])
@@ -103,3 +107,6 @@ class Mailings(models.Model):
         verbose_name = 'Рассылка'
         verbose_name_plural = 'Рассылки'
         ordering = ['owner', 'launch_at', ]
+        permissions = [
+            ('change_active_mailing', 'change_active_mailing'),
+        ]
