@@ -23,7 +23,7 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
-        ordering = ['-is_active', ]
+        ordering = ['is_active', ]
         permissions = [
             ('change_active_user', 'change_active_user'),
         ]
