@@ -14,8 +14,19 @@ class MailingsListView(ListView):
     """
     model = Mailings
 
+    def get_queryset(self):
+        """
+        Выводит только рассылки текущего пользователя или без автора
+        """
+        user = self.request.user
+        if not user.is_authenticated:
+            return Mailings.objects.filter(owner=None)
+        if user.has_perm('mailings.change_active_mailing'):
+            return Mailings.objects.all()
+        return Mailings.objects.filter(owner=user) | Mailings.objects.filter(owner=None)
 
-class MailingsDetailView(DetailView):
+
+class MailingsDetailView(LoginRequiredMixin, DetailView):
     """
     Выводит детальную информацию о рассылке
     """
@@ -57,9 +68,10 @@ class MailingsUpdateView(LoginRequiredMixin, UpdateView):
     def get_form_class(self):
         """ Получаем форму в зависимости от прав пользователя  """
         user = self.request.user
+        print(user.has_perm)
         if user == self.object.owner:
             return MailingsForm
-        if user.has_perm('Mailings.change_active_mailing'):
+        if user.has_perm('mailings.change_active_mailing'):
             return MailingsModeratorForm
         raise PermissionDenied('У вас недостаточно прав для редактирования.')
 
@@ -85,8 +97,18 @@ class MessageListView(ListView):
     """
     model = Message
 
+    def get_queryset(self):
+        """
+        Выводит только сообщения текущего пользователя или без автора
+        """
+        user = self.request.user
+        if not user.is_authenticated:
+            return Message.objects.filter(owner=None)
+        if user.has_perm('mailings.change_active_mailing'):
+            return Message.objects.all()
+        return Message.objects.filter(owner=user) | Message.objects.filter(owner=None)
 
-class MessageDetailView(DetailView):
+class MessageDetailView(LoginRequiredMixin, DetailView):
     """
     Выводит детальную информацию о сообщении
     """
@@ -106,10 +128,10 @@ class MessageCreateView(LoginRequiredMixin, CreateView):
         """
         Сохраняет новое сообщение и связывает его с текущим пользователем
         """
-        client = form.save()
+        message = form.save()
         user = self.request.user
-        client.owner = user
-        client.save()
+        message.owner = user
+        message.save()
         return super().form_valid(form)
 
 
@@ -136,6 +158,16 @@ class EmailClientListView(ListView):
     """
     model = EmailClient
 
+    def get_queryset(self):
+        """
+        Выводит только клиентов текущего пользователя или без автора
+        """
+        user = self.request.user
+        if not user.is_authenticated:
+            return EmailClient.objects.filter(owner=None)
+        if user.has_perm('mailings.change_active_mailing'):
+            return EmailClient.objects.all()
+        return EmailClient.objects.filter(owner=user) | EmailClient.objects.filter(owner=None)
 
 class EmailClientCreateView(LoginRequiredMixin, CreateView):
     """

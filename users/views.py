@@ -106,6 +106,9 @@ class ProfileView(UpdateView, StyleFormMixin):
     success_url = reverse_lazy('users:profile')
 
     def get_object(self, queryset=None):
+        """
+        Возвращает текущего пользователя
+        """
         return self.request.user
 
 
