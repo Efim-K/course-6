@@ -18,7 +18,9 @@
     {% for object in object_list %}
     <div class="list-group list-group-flush border-bottom scrollarea">
         <a href="#"
-           class="list-group-item list-group-item-action active py-3 lh-sm" aria-current="true">
+           class="list-group-item list-group-item-action
+           {% if object.owner == user %} active {% endif %}
+           py-3 lh-sm" aria-current="true">
             <div class="d-flex w-100 align-items-left justify-content-between">
                 <div class="list-group">
                     <h4><strong class="mb-1">ФИО клиента: {{ object.name }}</strong></h4>
@@ -28,12 +30,14 @@
 
 
             </div>
+            {% if object.owner == user %}
             <div class="row row-cols-6 row-cols-lg-6 g-2" style="width: 100%;">
                 <a class="btn btn-primary px-4 rounded-pill"
                    href="{% url 'mailings:emailclient_update' object.pk %}" role="button">Редактировать</a>
                 <a class="btn btn-primary px-4 rounded-pill"
                    href="{% url 'mailings:emailclient_delete' object.pk %}" role="button">Удалить</a>
             </div>
+            {% endif %}
             <hr>
 
         </a>

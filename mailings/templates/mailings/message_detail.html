@@ -13,9 +13,11 @@
     </a>
     <div class="text-bg-light p-3">
         <a class="btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'mailings:message_list' %}" role="button">Назад</a>
+        {% if object.owner == user %}
         <a class="btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'mailings:message_update' object.pk %}" role="button">Редактировать</a>
         <a class="btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'mailings:message_delete' object.pk %}" role="button">Удалить</a>
         <a class="btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'mailings:message_create' %}" role="button">Создать новое сообщение</a>
+        {% endif %}
     </div>
     <div class="list-group list-group-flush border-bottom scrollarea">
         <a href="{% url 'mailings:message_view' object.pk %}" class="list-group-item list-group-item-action active py-3 lh-sm" aria-current="true">

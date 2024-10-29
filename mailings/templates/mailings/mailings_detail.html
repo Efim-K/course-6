@@ -5,9 +5,13 @@
 <div class="container my-5">
     <div class="d-inline-flex gap-2 mb-5">
         <a class="btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'mailings:mailings_list' %}" role="button">Назад</a>
+        {% if object.owner == user or perms.mailings.change_active_mailing %}
         <a class="btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'mailings:mailings_update' object.pk %}" role="button">Редактировать</a>
+        {% endif %}
+        {% if object.owner == user %}
         <a class="btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'mailings:mailings_delete' object.pk %}" role="button">Удалить</a>
         <a class="btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'mailings:mailings_create' %}" role="button">Создать новую рассылку</a>
+        {% endif %}
 
     </div>
 
@@ -23,6 +27,7 @@
                 {% else %} Не активна
                 {% endif %}
             </h4>
+            <h4 class="text-body-emphasis text-left"> Владелец рассылки: {{ object.owner}} </h4>
         </div>
     </div>
     <div class="p-5 text-center rounded-3">

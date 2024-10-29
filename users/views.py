@@ -3,7 +3,7 @@ import random
 import string
 
 from django.core.mail import send_mail
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, ListView
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404, redirect
 
@@ -11,6 +11,7 @@ from users.forms import UserRegisterForm, ResetPasswordForm, UserProfileForm, St
 from users.models import User
 
 from django.contrib.auth.views import PasswordResetView
+from django.core.exceptions import PermissionDenied
 
 from config.settings import EMAIL_HOST_USER
 
@@ -29,7 +30,12 @@ class UserCreateView(CreateView, StyleFormMixin):
         Проверяет данные на валидность и генерирует случайный ключ
         """
         user = form.save()
+        # Отключаем активацию пользователя, так как он не подтвержден
         user.is_active = False
+        # отключаем
+        user.is_staff = False
+        # отключаем супер юзера
+        user.is_superuser = False
         # Генерация случайного ключа
         token = secrets.token_hex(16)
         user.token = token
@@ -101,3 +107,37 @@ class ProfileView(UpdateView, StyleFormMixin):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+class UsersListView(ListView):
+    """
+    Выводит список всех рассылок
+    """
+    model = User
+
+
+class UserUpdateView(UpdateView):
+    """
+    Редактирует профиль другого пользователя
+    """
+    model = User
+    fields = ['is_active', ]
+
+    def get_queryset(self):
+        """
+        Выбираем только тех пользователей, которым эта модель имеет доступ
+        """
+        # получаем активного пользователя и проверяем доступ
+        user = self.request.user
+        if not user.has_perm('users.change_active_user'):
+            raise PermissionDenied
+
+        # получаем нужного пользователя
+        user = User.objects.filter(pk=self.kwargs.get('pk'))
+        return user
+
+    def get_success_url(self):
+        """
+        Возвращает URL, на который перенаправляется после успешного сохранения
+        """
+        return reverse_lazy('users:user_list')

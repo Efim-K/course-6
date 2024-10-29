@@ -4,7 +4,7 @@
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
         <form method="post" enctype="multipart/form-data">
-        <div class="row">
+            <div class="row">
 
                 <div class="col-12">
                     <div class="card">
@@ -12,12 +12,19 @@
                             {% csrf_token %}
                             {{ form.as_p }}
                         </div>
-                        <button type="submit" class="btn btn-primary"> Зарегистрироваться </button>
+                        <button type="submit" class="btn btn-primary">
+                            {% if user.is_authenticated %}
+                            Изменить
+                            {% else %}
+                            Зарегистрироваться
+                            {% endif %}
+
+                        </button>
                         <a href="{% url 'mailings:mailings_list' %}" class="btn btn-secondary"> Отмена </a>
                     </div>
                 </div>
-        </div>
-    </form>
+            </div>
+        </form>
     </div>
 </div>
 {% endblock %}

@@ -1,0 +1,48 @@
+{% extends "mailings/base.html" %}
+
+{% block content %}
+
+<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 88%;">
+
+    <a href="/"
+       class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
+        <svg class="bi pe-none me-2" width="30" height="24">
+            <use xlink:href="#person-vcard-fill"/>
+        </svg>
+        <span class="fs-2 fw-semibold">Список Пользователей</span>
+    </a>
+    {% for object in object_list %}
+    {% if not object.is_superuser %}
+    <div class="list-group list-group-flush border-bottom scrollarea">
+        <a href="#"
+           class="list-group-item list-group-item-action {% if object.is_active %} active {% endif %} py-3 lh-sm" aria-current="true">
+            <div class="d-flex w-100 align-items-left justify-content-between">
+                <div class="list-group">
+                    <h4><strong class="mb-1">Почта : {{ object.email }}</strong></h4>
+                    <h4><strong class="mb-1">Имя : {{ object.first_name }}</strong></h4>
+                    <h4><strong class="mb-1">Фамилия : {{ object.last_name }}</strong></h4>
+
+                </div>
+            </div>
+            <div class="row row-cols-6 row-cols-lg-6 g-2" style="width: 100%;">
+                <a class="btn btn-primary px-4 rounded-pill"
+                   href="{% url 'users:user_update' object.pk %}" role="button">
+                    {% if object.is_active %}
+                    Де актировать
+                    {% else %}
+                    Активировать
+                    {% endif %}
+                </a>
+            </div>
+            <hr>
+
+        </a>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+</div>
+<div class="b-example-divider b-example-vr"></div>
+
+
+{% endblock %}

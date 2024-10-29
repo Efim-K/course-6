@@ -13,7 +13,9 @@
                             {{ form.as_p }}
                         </div>
                         <button type="submit" class="btn btn-primary"> Изменить </button>
-                        <a href="{% url 'mailings:mailings_list' %}" class="btn btn-secondary"> Вернуться </a>
+                        {% if perms.users.change_active_user %}
+                        <a href="{% url 'users:user_list' %}" class="btn btn-secondary"> Вернуться </a>
+                        {% endif %}
                     </div>
                 </div>
         </div>
