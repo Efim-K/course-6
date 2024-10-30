@@ -15,7 +15,7 @@ def send_email(obj):
             subject=obj.message.message_title,
             message=obj.message.message_text,
             from_email=EMAIL_HOST_USER,
-            recipient_list=[obj.email_client],
+            recipient_list=[email.email for email in obj.email_client.all()],
             fail_silently=False,
         )
 

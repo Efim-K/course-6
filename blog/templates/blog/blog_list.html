@@ -1,0 +1,42 @@
+{% extends "mailings/base.html" %}
+
+{% block content %}
+
+<div class="album py-1 bg-body-tertiary" style="width: 88%;">
+    <section class="py-1 text-center container">
+        <div class="row py-lg-1">
+            <div class="col-lg-6 col-md-1 mx-auto">
+                <a class="btn btn-primary" href="{% url 'blog:blog_create' %}" role="button">Добавить блог</a>
+            </div>
+        </div>
+    </section>
+
+        <div class="row">
+            {% for object in object_list %}
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">
+                            {% if object.is_published %}
+                            {{ object|title }}
+                            {% else %}
+                            <span class="text-muted">{{ object|title }}</span>
+                            {% endif %}
+
+                            <div class="btn-group">
+                                <a class="btn btn-primary" href="{% url 'blog:blog_view' object.pk %}"
+                                   role="button">Посмотреть</a>
+                                <a class="btn btn-primary" href="{% url 'blog:blog_update' object.pk %}"
+                                   role="button">Изменить</a>
+                                <a class="btn btn-primary" href="{% url 'blog:blog_delete' object.pk %}"
+                                   role="button">Удалить</a>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+</div>
+{% endblock %}

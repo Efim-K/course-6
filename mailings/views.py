@@ -107,6 +107,7 @@ class MessageListView(ListView):
             return Message.objects.all()
         return Message.objects.filter(owner=user) | Message.objects.filter(owner=None)
 
+
 class MessageDetailView(LoginRequiredMixin, DetailView):
     """
     Выводит детальную информацию о сообщении
@@ -168,6 +169,7 @@ class EmailClientListView(ListView):
             return EmailClient.objects.all()
         return EmailClient.objects.filter(owner=user) | EmailClient.objects.filter(owner=None)
 
+
 class EmailClientCreateView(LoginRequiredMixin, CreateView):
     """
     Создает нового клиента почты
@@ -202,3 +204,6 @@ class EmailClientDeleteView(LoginRequiredMixin, DeleteView):
     """
     model = EmailClient
     success_url = reverse_lazy('mailings:emailclient_list')
+
+
+
