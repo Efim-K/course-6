@@ -55,10 +55,10 @@ class Mailings(models.Model):
     )
 
     launch_at = models.DateTimeField(
-        verbose_name='Дата запуска рассылки'
+        verbose_name='Дата запуска рассылки',
     )
     completed_at = models.DateTimeField(
-        verbose_name='Дата завершения рассылки'
+        verbose_name='Дата завершения рассылки',
     )
 
     periodicity = models.CharField(
