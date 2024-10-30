@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "mailings",
     "users",
+    "django_apscheduler",
 
 ]
 

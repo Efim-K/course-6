@@ -106,3 +106,39 @@ class Mailings(models.Model):
         permissions = [
             ('change_active_mailing', 'change_active_mailing'),
         ]
+
+
+class Attempt(models.Model):
+    """ данные для попыток отправки сообщений """
+
+    STATUS_CHOICES = [
+        ("Успешно", "Успешно"),
+        ("Не успешно", "Не успешно"),
+    ]
+    mailing_list = models.ForeignKey(
+        Mailings,
+        on_delete=models.CASCADE,
+        verbose_name="Рассылка",
+        related_name="attempts",
+    )
+    last_time = models.DateTimeField(
+        verbose_name="Дата отправки последней попытки",
+        auto_now_add=True,
+    )
+    status = models.CharField(
+        max_length=50,
+        choices=STATUS_CHOICES,
+        verbose_name="Статус попытки",
+        default="Не успешно",
+    )
+    server_response = models.TextField(
+        verbose_name="Ответ почтового сервера", **NULLABLE
+    )
+
+    class Meta:
+        verbose_name = "Попытка"
+        verbose_name_plural = "Попытки"
+        ordering = ("id",)
+
+    def __str__(self):
+        return f'{self.time} {self.status}'

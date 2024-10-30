@@ -1,3 +1,4 @@
+# runapscheduler.py
 import logging
 
 from django.conf import settings
@@ -9,12 +10,10 @@ from django_apscheduler.jobstores import DjangoJobStore
 from django_apscheduler.models import DjangoJobExecution
 from django_apscheduler import util
 
+from mailings.services import send_email_period
+
 logger = logging.getLogger(__name__)
 
-
-def my_job():
-    # Your job processing logic here...
-    pass
 
 
 # The `close_old_connections` decorator ensures that database connections, that have become
@@ -41,13 +40,13 @@ class Command(BaseCommand):
         scheduler.add_jobstore(DjangoJobStore(), "default")
 
         scheduler.add_job(
-            my_job,
+            send_email_period,
             trigger=CronTrigger(second="*/10"),  # Every 10 seconds
-            id="my_job",  # The `id` assigned to each job MUST be unique
+            id="send_email_period",  # The `id` assigned to each job MUST be unique
             max_instances=1,
             replace_existing=True,
         )
-        logger.info("Added job 'my_job'.")
+        logger.info("Added job 'send_email_period'.")
 
         scheduler.add_job(
             delete_old_job_executions,
