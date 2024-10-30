@@ -22,6 +22,7 @@
             <h4 class="text-body-emphasis text-left"> Дата завершения рассылки: {{ object.completed_at }}</h4>
             {% endif %}
             <h4 class="text-body-emphasis text-left"> Периодичность рассылки: {{ object.get_periodicity_display }}</h4>
+            <h4 class="text-body-emphasis text-left"> Статус: {{ object.get_status_display }}</h4>
             <h4 class="text-body-emphasis text-left"> Статус активности:
                 {% if object.is_active %} Активна
                 {% else %} Не активна

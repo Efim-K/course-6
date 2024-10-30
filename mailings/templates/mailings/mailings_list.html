@@ -29,6 +29,7 @@
                     </svg>
                 </small>
             </div>
+            <div class="col-10 mb-1">Статус: {{ object.get_status_display }}</div>
             <div class="col-10 mb-1 small">{{ object.message.message_text | truncatechars:60 }}.</div>
         </a>
     </div>
@@ -49,7 +50,7 @@
         <span class="fs-2 fw-semibold">Список не активных рассылок</span>
     </a>
     <div class="text-bg-light p-3">
-        <a class="btn btn-primary" href="{% url 'mailings:mailings_list' %}" role="button">Кнопка</a>
+        <a class="btn btn-primary" href="{% url 'mailings:mailings_create' %}" role="button">Создать новую рассылку</a>
     </div>
     {% for object in object_list %}
     {% if not object.is_active %}
@@ -66,6 +67,7 @@
                     </svg>
                 </small>
             </div>
+            <div class="col-10 mb-1">Статус: {{ object.get_status_display }}</div>
             <div class="col-10 mb-1 small">{{ object.message.message_text | truncatechars:60 }}</div>
         </a>
     </div>

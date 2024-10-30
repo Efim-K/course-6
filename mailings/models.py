@@ -43,9 +43,9 @@ class Mailings(models.Model):
     """ данные для рассылок """
 
     MAILINGS_CHOICES = (
-        ('CREATED', 'создана'),
-        ('LAUNCHED', 'запущена'),
-        ('COMPLETED', 'завершена'),
+        ('CREATED', 'Создана'),
+        ('LAUNCHED', 'Запущена'),
+        ('COMPLETED', 'Завершена'),
     )
     MAILINGS_PERIODICITY = (
         ('ONCE', 'Однократно'),
@@ -55,11 +55,9 @@ class Mailings(models.Model):
     )
 
     launch_at = models.DateTimeField(
-        **NULLABLE,
         verbose_name='Дата запуска рассылки'
     )
     completed_at = models.DateTimeField(
-        **NULLABLE,
         verbose_name='Дата завершения рассылки'
     )
 
@@ -141,4 +139,4 @@ class Attempt(models.Model):
         ordering = ("id",)
 
     def __str__(self):
-        return f'{self.time} {self.status}'
+        return f'{self.last_time} {self.status}'

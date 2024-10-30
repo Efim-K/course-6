@@ -38,7 +38,7 @@ class MailingsCreateView(LoginRequiredMixin, CreateView):
     """
     Создает новую рассылку
     """
-    fields = ('launch_at', 'completed_at', 'periodicity', 'status', 'message', 'email_client', 'is_active')
+    fields = ('launch_at', 'completed_at', 'periodicity', 'message', 'email_client', 'is_active')
     success_url = reverse_lazy('mailings:mailings_list')
 
     def form_valid(self, form):
@@ -68,7 +68,6 @@ class MailingsUpdateView(LoginRequiredMixin, UpdateView):
     def get_form_class(self):
         """ Получаем форму в зависимости от прав пользователя  """
         user = self.request.user
-        print(user.has_perm)
         if user == self.object.owner:
             return MailingsForm
         if user.has_perm('mailings.change_active_mailing'):

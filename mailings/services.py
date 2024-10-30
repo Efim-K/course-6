@@ -3,7 +3,7 @@ import datetime
 from mailings.models import Mailings, Attempt
 from django.core.mail import send_mail
 from config.settings import EMAIL_HOST_USER
-from django.core.exceptions import SMTPException
+from smtplib import SMTPException
 
 
 def send_email(obj):
@@ -33,27 +33,25 @@ def send_email_period():
     """
     datetime_now = datetime.datetime.now(datetime.timezone.utc)
 
-    mailing_list = Mailings.objects.filter(launch_at__lt=datetime_now)
+    mailing_list = Mailings.objects.filter(launch_at__lt=datetime_now, is_active=True)
 
     for mailing in mailing_list:
-        if mailing.is_active:
-            mailing.status = "LAUNCHED"
-            mailing.save(update_fields=["status"])
-
-        if mailing.completed_at < datetime_now
-            mailing.status = "COMPLETED"
-            mailing.is_active = False
-            mailing.save(update_fields=["status", "is_active"])
+        mailing.status = "LAUNCHED"
 
         if mailing.status == "LAUNCHED":
             send_email(mailing)
             if mailing.periodicity == "ONCE":
+                mailing.status = "COMPLETED"
                 mailing.is_active = False
-                mailing.save(update_fields=["is_active"])
             if mailing.periodicity == "DAILY":
                 mailing.launch_at = datetime_now + datetime.timedelta(days=1)
             if mailing.periodicity == "WEEKLY":
                 mailing.launch_at = datetime_now + datetime.timedelta(days=7)
             if mailing.periodicity == "MONTHLY":
                 mailing.launch_at = datetime_now + datetime.timedelta(days=30)
-            mailing.save(update_fields=["launch_at"])
+
+        if mailing.completed_at < datetime_now:
+            mailing.status = "COMPLETED"
+            mailing.is_active = False
+
+        mailing.save(update_fields=["launch_at", "status", "is_active"])
