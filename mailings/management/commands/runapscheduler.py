@@ -1,24 +1,22 @@
 # runapscheduler.py
 import logging
 
-from django.conf import settings
-
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
+from django.conf import settings
 from django.core.management.base import BaseCommand
+from django_apscheduler import util
 from django_apscheduler.jobstores import DjangoJobStore
 from django_apscheduler.models import DjangoJobExecution
-from django_apscheduler import util
 
 from mailings.services import send_email_period
 
 logger = logging.getLogger(__name__)
 
 
-
 # The `close_old_connections` decorator ensures that database connections, that have become
 # unusable or are obsolete, are closed before and after your job has run. You should use it
-# to wrap any jobs that you schedule that access the Django database in any way. 
+# to wrap any jobs that you schedule that access the Django database in any way.
 @util.close_old_connections
 def delete_old_job_executions(max_age=604_800):
     """
@@ -57,9 +55,7 @@ class Command(BaseCommand):
             max_instances=1,
             replace_existing=True,
         )
-        logger.info(
-            "Added weekly job: 'delete_old_job_executions'."
-        )
+        logger.info("Added weekly job: 'delete_old_job_executions'.")
 
         try:
             logger.info("Starting scheduler...")

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from mailings.models import Message, EmailClient, Mailings
+from mailings.models import EmailClient, Mailings, Message
 
 
 # Register your models here.
@@ -17,7 +17,10 @@ class MessageAdmin(admin.ModelAdmin):
 @admin.register(EmailClient)
 class EmailClientAdmin(admin.ModelAdmin):
     list_display = ("id", "name", "email", "comment")
-    list_filter = ("name", "email",)
+    list_filter = (
+        "name",
+        "email",
+    )
     search_fields = (
         "name",
         "email",
@@ -26,7 +29,15 @@ class EmailClientAdmin(admin.ModelAdmin):
 
 @admin.register(Mailings)
 class MailingsAdmin(admin.ModelAdmin):
-    list_display = ("id", "launch_at", "completed_at", "periodicity", "status", "message", "get_email_client")
+    list_display = (
+        "id",
+        "launch_at",
+        "completed_at",
+        "periodicity",
+        "status",
+        "message",
+        "get_email_client",
+    )
     list_filter = ("launch_at", "completed_at", "periodicity", "status", "message")
     search_fields = (
         "launch_at",

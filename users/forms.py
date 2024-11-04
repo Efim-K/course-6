@@ -1,5 +1,6 @@
-from django.contrib.auth.forms import UserCreationForm, PasswordResetForm, UserChangeForm
 from django import forms
+from django.contrib.auth.forms import (PasswordResetForm, UserChangeForm,
+                                       UserCreationForm)
 
 from users.models import User
 
@@ -13,9 +14,9 @@ class StyleFormMixin:
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             if isinstance(field, BooleanField):
-                field.widget.attrs['class'] = 'form-check-input'
+                field.widget.attrs["class"] = "form-check-input"
             else:
-                field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs["class"] = "form-control"
 
 
 class UserRegisterForm(UserCreationForm, StyleFormMixin):
@@ -23,7 +24,7 @@ class UserRegisterForm(UserCreationForm, StyleFormMixin):
 
     class Meta:
         model = User
-        fields = ['email', 'password1', 'password2']
+        fields = ["email", "password1", "password2"]
 
 
 class ResetPasswordForm(PasswordResetForm, StyleFormMixin):
@@ -31,7 +32,9 @@ class ResetPasswordForm(PasswordResetForm, StyleFormMixin):
 
     class Meta:
         model = User
-        fields = ['email', ]
+        fields = [
+            "email",
+        ]
 
 
 class UserProfileForm(UserChangeForm, StyleFormMixin):
@@ -39,8 +42,15 @@ class UserProfileForm(UserChangeForm, StyleFormMixin):
 
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'phone', 'avatar', 'country', ]
+        fields = [
+            "email",
+            "first_name",
+            "last_name",
+            "phone",
+            "avatar",
+            "country",
+        ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['password'].widget = forms.HiddenInput()
+        self.fields["password"].widget = forms.HiddenInput()

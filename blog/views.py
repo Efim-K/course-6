@@ -1,16 +1,24 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
-from blog.models import Blog
 from django.utils.text import slugify
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
+
+from blog.models import Blog
 
 
 class BlogCreateView(CreateView):
     """
     Создает новую публикацию блога
     """
+
     model = Blog
-    fields = ('title', 'content', 'preview', 'is_published',)
-    success_url = reverse_lazy('blog:blog_list')
+    fields = (
+        "title",
+        "content",
+        "preview",
+        "is_published",
+    )
+    success_url = reverse_lazy("blog:blog_list")
 
     def form_valid(self, form):
         """
@@ -27,18 +35,25 @@ class BlogUpdateView(UpdateView):
     """
     Обновляет публикацию блога
     """
+
     model = Blog
-    fields = ('title', 'content', 'preview', 'is_published',)
-    success_url = reverse_lazy('blog:blog_list')
+    fields = (
+        "title",
+        "content",
+        "preview",
+        "is_published",
+    )
+    success_url = reverse_lazy("blog:blog_list")
 
     def get_success_url(self):
-        return reverse_lazy('blog:blog_view', args=[self.object.pk])
+        return reverse_lazy("blog:blog_view", args=[self.object.pk])
 
 
 class BlogListView(ListView):
     """
     Получает все публикации блога
     """
+
     model = Blog
 
     def get_queryset(self, *args, **kwargs):
@@ -67,5 +82,6 @@ class BlogDeleteView(DeleteView):
     """
     Удаляет публикацию блога
     """
+
     model = Blog
-    success_url = reverse_lazy('blog:blog_list')
+    success_url = reverse_lazy("blog:blog_list")

@@ -1,4 +1,4 @@
-from django.forms import ModelForm, BooleanField
+from django.forms import BooleanField, ModelForm
 
 from mailings.models import Mailings
 from users.forms import StyleFormMixin
@@ -11,7 +11,10 @@ class MailingsForm(ModelForm, StyleFormMixin):
 
     class Meta:
         model = Mailings
-        exclude = ('owner', 'status',)
+        exclude = (
+            "owner",
+            "status",
+        )
 
 
 class MailingsModeratorForm(ModelForm, StyleFormMixin):
@@ -21,4 +24,4 @@ class MailingsModeratorForm(ModelForm, StyleFormMixin):
 
     class Meta:
         model = Mailings
-        fields = ('is_active',)
+        fields = ("is_active",)
