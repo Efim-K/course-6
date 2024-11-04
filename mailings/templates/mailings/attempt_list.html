@@ -1,0 +1,37 @@
+{% extends "mailings/base.html" %}
+
+{% block content %}
+
+<div class="album py-1 bg-body-tertiary" style="width: 88%;">
+    <section class="py-1 text-center container">
+        <div class="row py-lg-1">
+            <div class="col-lg-6 col-md-1 mx-auto">
+                <a class="btn btn-primary" href="{% url 'mailings:home_page' %}" role="button">Назад</a>
+            </div>
+        </div>
+    </section>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Тема рассылки</th>
+                <th scope="col">Последняя попытка отправки</th>
+                <th scope="col">Статус попытки</th>
+                <th scope="col">Ответ почтового сервера</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for object in object_list %}
+            <tr>
+
+                <th scope="row"> {{ object.mailing_list.message.message_title }} </th>
+                <td>{{ object.last_time }}</td>
+                <td>{{ object.status }}</td>
+                <td>{{ object.server_response }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+</div>
+{% endblock %}

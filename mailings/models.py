@@ -9,7 +9,7 @@ class EmailClient(models.Model):
     """ данные для рассылки """
 
     name = models.CharField(max_length=255, verbose_name='Ф. И. О.')
-    email = models.EmailField(verbose_name='Email получателя')
+    email = models.EmailField(unique=True, verbose_name='Email получателя')
     comment = models.TextField(verbose_name='Комментарий', **NULLABLE)
     owner = models.ForeignKey(User, verbose_name="Владелец", on_delete=models.SET_NULL, **NULLABLE)
 

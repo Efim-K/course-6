@@ -1,10 +1,15 @@
+import random
+
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.shortcuts import render
 
+from blog.models import Blog
 from mailings.forms import MailingsForm, MailingsModeratorForm
-from mailings.models import Mailings, Message, EmailClient
+from mailings.models import Mailings, Message, EmailClient, Attempt
+from mailings.services import get_total_items_from_cache, get_total_mailings_active_from_cache
 
 
 # Create your views here.
@@ -206,4 +211,34 @@ class EmailClientDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('mailings:emailclient_list')
 
 
+class AttemptListView(LoginRequiredMixin, ListView):
+    """
+    Контроллер для отображения всех попыток отправки рассылки
+    """
+    model = Attempt
+    template_name = "mailings/attempt_list.html"
 
+
+
+def home_page_view(request):
+    """
+    Контроллер главной страницы
+    """
+    template_name = "mailings/home_page.html"
+    total_mailings = get_total_items_from_cache("mailing", Mailings)
+    total_active_mailings = get_total_mailings_active_from_cache()
+    total_clients = get_total_items_from_cache("clients", EmailClient)
+    blogs = get_total_items_from_cache("blogs", Blog)
+    blogs_list = []
+    for blog in blogs:
+        blogs_list.append(blog)
+    random.shuffle(blogs_list)
+
+    context = {
+        "total_mailings": len(total_mailings),
+        "total_active_mailings": len(total_active_mailings),
+        "total_clients": total_clients.values('email').distinct().count(),
+        "blogs": blogs_list[:3],
+    }
+    print()
+    return render(request, template_name, context)

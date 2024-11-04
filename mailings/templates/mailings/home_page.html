@@ -1,13 +1,20 @@
 {% extends "mailings/base.html" %}
+{% load my_tags %}
+{% load static %}
 
 {% block content %}
-
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">Сервис для создания рассылок</h1>
-</div>
+<div class="album py-1 bg-body-tertiary" style="width: 88%;">
+    <section class="py-1 text-center container">
+        <div class="row py-lg-1">
+            <div class="col-lg-12 col-md-1 mx-auto">
+                <h1>Сервис создания рассылок</h1>
+                <br>
+            </div>
+        </div>
+    </section>
 <div class="row text-center">
     <div class="col-3"></div>
-    <div class="col-6">
+    <div class="col-12">
         <table class="table">
             <thead>
             <tr>
@@ -18,9 +25,8 @@
                     <h4>Всего клиентов для рассылок</h4>
                 </th>
                 <th scope="col">
-                    <h4>Активных рассылок</h4>
+                    <h4> Рассылки со статусом "Запущены"</h4>
                 </th>
-
             </tr>
             </thead>
             <tbody>
@@ -42,25 +48,22 @@
             <div class="col-4">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h4> {{ blog.tittle }} </h4>
+                        <h4> {{ blog.title }} </h4>
                     </div>
-
                     <div class="card-body">
-                        {% if blog.images %}
-                        <img src="{{ blog.images| mymedia }}" style="width: 200px; height: 150px">
+                        {% if blog.preview %}
+                        <img src="{{ blog.preview | media_filter }}" style="width: 200px; height: 150px">
                         {% else %}
-                        <img src="/media/dd70ce88-0468-427b-9b4b-e3b4b4ddf6f0.jpeg"
+                        <img src="{% static 'images/image_by_default.jpeg' %}"
                              style="width: 200px; height: 150px">
                         {% endif %}
                         <br>
                         <br>
-                        <p> {{ blog.content_article | truncatechars:50 }}</p>
+                        <p> {{ blog.content | truncatechars:50 }}</p>
                         <a class="btn btn-lg btn-block btn-outline-primary"
-                       href="{% url 'blog:blog_detail' blog.pk %}"
+                       href="{% url 'blog:blog_view' blog.pk %}"
                        role="button">Подробнее</a>
                     </div>
-
-
                 </div>
             </div>
             {% endfor %}
@@ -70,20 +73,3 @@
 
 {% endblock %}
 
-<!--<div class="album py-5 bg-body-tertiary">-->
-<!--    <div class="container">-->
-<!--        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">-->
-<!--            <h1 class="display-4">Сервис управления рассылками</h1>-->
-<!--            <div class="col">-->
-<!--                <div class="card shadow-sm">-->
-<!--                    <div class="card-body">-->
-<!--                        <p class="card-text">{{ object.name }}</p>-->
-<!--                        <p class="card-text">Описание: {{ object.depiction }}</p>-->
-<!--                        <div class="d-flex justify-content-between align-items-center">-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
