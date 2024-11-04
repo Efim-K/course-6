@@ -1,11 +1,12 @@
 import datetime
+from smtplib import SMTPException
+
+from django.core.cache import cache
+from django.core.mail import send_mail
 
 from config import settings
-from mailings.models import Mailings, Attempt
-from django.core.mail import send_mail
 from config.settings import EMAIL_HOST_USER
-from smtplib import SMTPException
-from django.core.cache import cache
+from mailings.models import Attempt, Mailings
 
 
 def send_email(obj):
