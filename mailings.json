@@ -1,29 +1,42 @@
 [
 {
     "model": "mailings.emailclient",
+    "pk": 1,
+    "fields": {
+        "name": "Иван Иванов",
+        "email": "ivan@ivan111.ru",
+        "comment": "Предприниматель",
+        "owner": 1
+    }
+},
+{
+    "model": "mailings.emailclient",
     "pk": 2,
     "fields": {
         "name": "Ефим",
         "email": "nastolka@rambler.ru",
-        "comment": "ученик"
+        "comment": "Тест",
+        "owner": 1
     }
 },
 {
     "model": "mailings.emailclient",
     "pk": 3,
     "fields": {
-        "name": "Петр",
-        "email": "petr@petr.ru",
-        "comment": "Петр"
+        "name": "test",
+        "email": "test@test.test",
+        "comment": "test",
+        "owner": 1
     }
 },
 {
     "model": "mailings.emailclient",
-    "pk": 4,
+    "pk": 6,
     "fields": {
-        "name": "Semen",
-        "email": "semen@semen.ru",
-        "comment": "ученик"
+        "name": "123123123",
+        "email": "123@123.123",
+        "comment": "123",
+        "owner": 2
     }
 },
 {
@@ -31,7 +44,8 @@
     "pk": 1,
     "fields": {
         "message_title": "Привет",
-        "message_text": "Приветствуем нового пользователя"
+        "message_text": "Давай знакомиться!",
+        "owner": 1
     }
 },
 {
@@ -39,46 +53,32 @@
     "pk": 2,
     "fields": {
         "message_title": "Черная пятница",
-        "message_text": "Скидки в пятницу 20%\r\nЧерная пятница или Black Friday — праздник для шопоголиков и одна из главных распродаж, во время которой скидки доходят даже до 90% и распространяются на все категории товаров: бытовую технику, одежду, смартфоны, детские товары и многое другое."
+        "message_text": "Скидки 13% по пятницам",
+        "owner": 1
     }
 },
 {
     "model": "mailings.message",
     "pk": 3,
     "fields": {
-        "message_title": "С новым годом!",
-        "message_text": "С новым Годом!"
-    }
-},
-{
-    "model": "mailings.message",
-    "pk": 4,
-    "fields": {
         "message_title": "Скидки постоянным клиентам и подписчикам, которые с нами больше года",
-        "message_text": "Следующая неделя скидки 30%"
-    }
-},
-{
-    "model": "mailings.message",
-    "pk": 5,
-    "fields": {
-        "message_title": "Новая тема",
-        "message_text": "Привет, привет!"
+        "message_text": "Постоянные скидки",
+        "owner": 1
     }
 },
 {
     "model": "mailings.mailings",
     "pk": 1,
     "fields": {
-        "launch_at": "2024-09-08T10:46:46Z",
-        "completed_at": null,
-        "periodicity": "ONCE",
+        "launch_at": "2023-11-12T00:00:00Z",
+        "completed_at": "2024-12-12T00:00:00Z",
+        "periodicity": "DAILY",
         "status": "CREATED",
         "message": 1,
         "is_active": false,
+        "owner": 1,
         "email_client": [
-            4,
-            2
+            1
         ]
     }
 },
@@ -86,14 +86,31 @@
     "model": "mailings.mailings",
     "pk": 2,
     "fields": {
-        "launch_at": "2024-09-25T09:23:00Z",
-        "completed_at": "2025-01-01T16:56:56Z",
-        "periodicity": "MONTHLY",
-        "status": "CREATED",
-        "message": 2,
+        "launch_at": "2024-11-04T17:34:00.007Z",
+        "completed_at": "2024-12-12T00:00:00Z",
+        "periodicity": "DAILY",
+        "status": "LAUNCHED",
+        "message": 1,
         "is_active": true,
+        "owner": 1,
         "email_client": [
-            4
+            2
+        ]
+    }
+},
+{
+    "model": "mailings.mailings",
+    "pk": 3,
+    "fields": {
+        "launch_at": "2024-11-04T17:34:00.007Z",
+        "completed_at": "2024-10-30T00:00:00Z",
+        "periodicity": "DAILY",
+        "status": "COMPLETED",
+        "message": 1,
+        "is_active": false,
+        "owner": 1,
+        "email_client": [
+            1
         ]
     }
 },
@@ -101,14 +118,15 @@
     "model": "mailings.mailings",
     "pk": 4,
     "fields": {
-        "launch_at": "2024-10-01T15:12:09Z",
-        "completed_at": "2024-10-06T15:13:15Z",
-        "periodicity": "DAILY",
-        "status": "CREATED",
-        "message": 4,
-        "is_active": true,
+        "launch_at": "2024-11-10T17:34:00.007Z",
+        "completed_at": "2024-12-12T00:00:00Z",
+        "periodicity": "WEEKLY",
+        "status": "LAUNCHED",
+        "message": 2,
+        "is_active": false,
+        "owner": 1,
         "email_client": [
-            2
+            1
         ]
     }
 },
@@ -116,29 +134,15 @@
     "model": "mailings.mailings",
     "pk": 5,
     "fields": {
-        "launch_at": "2023-11-12T00:00:00Z",
+        "launch_at": "2024-11-04T17:36:50.006Z",
         "completed_at": "2024-12-12T00:00:00Z",
-        "periodicity": "ONCE",
-        "status": "CREATED",
-        "message": 1,
-        "is_active": true,
-        "email_client": [
-            2
-        ]
-    }
-},
-{
-    "model": "mailings.mailings",
-    "pk": 6,
-    "fields": {
-        "launch_at": "2023-11-12T00:00:00Z",
-        "completed_at": null,
-        "periodicity": "ONCE",
-        "status": "CREATED",
+        "periodicity": "DAILY",
+        "status": "LAUNCHED",
         "message": 3,
-        "is_active": false,
+        "is_active": true,
+        "owner": 1,
         "email_client": [
-            4
+            3
         ]
     }
 },
@@ -146,15 +150,170 @@
     "model": "mailings.mailings",
     "pk": 7,
     "fields": {
-        "launch_at": "2023-11-12T00:00:00Z",
-        "completed_at": "2024-12-12T00:00:00Z",
+        "launch_at": "2024-11-04T19:20:30.016Z",
+        "completed_at": "2025-10-30T00:00:00Z",
         "periodicity": "DAILY",
-        "status": "CREATED",
-        "message": 3,
+        "status": "LAUNCHED",
+        "message": 1,
         "is_active": true,
+        "owner": 2,
         "email_client": [
             3
         ]
+    }
+},
+{
+    "model": "mailings.mailings",
+    "pk": 8,
+    "fields": {
+        "launch_at": "2024-12-03T19:32:30Z",
+        "completed_at": "2024-12-12T00:00:00Z",
+        "periodicity": "MONTHLY",
+        "status": "LAUNCHED",
+        "message": 1,
+        "is_active": false,
+        "owner": 2,
+        "email_client": [
+            3
+        ]
+    }
+},
+{
+    "model": "mailings.mailings",
+    "pk": 9,
+    "fields": {
+        "launch_at": "2024-11-04T19:41:30.006Z",
+        "completed_at": "2024-10-30T00:00:00Z",
+        "periodicity": "DAILY",
+        "status": "COMPLETED",
+        "message": 2,
+        "is_active": false,
+        "owner": 2,
+        "email_client": [
+            6,
+            3,
+            1
+        ]
+    }
+},
+{
+    "model": "mailings.attempt",
+    "pk": 1,
+    "fields": {
+        "mailing_list": 2,
+        "last_time": "2024-10-30T12:51:10.573Z",
+        "status": "Не успешно",
+        "server_response": "{'mailings.EmailClient.None': (501, b'5.1.3 Bad recipient address syntax 1730292668-8pZnwAMZxmI0-oLt8IvrX')}"
+    }
+},
+{
+    "model": "mailings.attempt",
+    "pk": 2,
+    "fields": {
+        "mailing_list": 2,
+        "last_time": "2024-10-30T12:58:20.559Z",
+        "status": "Не успешно",
+        "server_response": "{'mailings.EmailClient.None': (501, b'5.1.3 Bad recipient address syntax 1730293098-IwZSEo8TlCg0-5fqdC38Q')}"
+    }
+},
+{
+    "model": "mailings.attempt",
+    "pk": 3,
+    "fields": {
+        "mailing_list": 2,
+        "last_time": "2024-10-30T13:00:40.913Z",
+        "status": "Успешно",
+        "server_response": "Доставлено"
+    }
+},
+{
+    "model": "mailings.attempt",
+    "pk": 4,
+    "fields": {
+        "mailing_list": 3,
+        "last_time": "2024-11-03T17:34:01.200Z",
+        "status": "Успешно",
+        "server_response": "Доставлено"
+    }
+},
+{
+    "model": "mailings.attempt",
+    "pk": 5,
+    "fields": {
+        "mailing_list": 4,
+        "last_time": "2024-11-03T17:34:02.075Z",
+        "status": "Успешно",
+        "server_response": "Доставлено"
+    }
+},
+{
+    "model": "mailings.attempt",
+    "pk": 6,
+    "fields": {
+        "mailing_list": 2,
+        "last_time": "2024-11-03T17:34:02.916Z",
+        "status": "Успешно",
+        "server_response": "Доставлено"
+    }
+},
+{
+    "model": "mailings.attempt",
+    "pk": 7,
+    "fields": {
+        "mailing_list": 5,
+        "last_time": "2024-11-03T17:36:50.841Z",
+        "status": "Успешно",
+        "server_response": "Доставлено"
+    }
+},
+{
+    "model": "mailings.attempt",
+    "pk": 8,
+    "fields": {
+        "mailing_list": 7,
+        "last_time": "2024-11-03T19:19:50.758Z",
+        "status": "Успешно",
+        "server_response": "Доставлено"
+    }
+},
+{
+    "model": "mailings.attempt",
+    "pk": 9,
+    "fields": {
+        "mailing_list": 7,
+        "last_time": "2024-11-03T19:20:30.843Z",
+        "status": "Успешно",
+        "server_response": "Доставлено"
+    }
+},
+{
+    "model": "mailings.attempt",
+    "pk": 10,
+    "fields": {
+        "mailing_list": 8,
+        "last_time": "2024-11-03T19:32:30.968Z",
+        "status": "Успешно",
+        "server_response": "Доставлено"
+    }
+},
+{
+    "model": "mailings.attempt",
+    "pk": 11,
+    "fields": {
+        "mailing_list": 9,
+        "last_time": "2024-11-03T19:33:21.577Z",
+        "status": "Успешно",
+        "server_response": "Доставлено"
+    }
+},
+{
+    "model": "mailings.attempt",
+    "pk": 12,
+    "fields": {
+        "mailing_list": 9,
+        "last_time": "2024-11-03T19:41:30.903Z",
+        "status": "Успешно",
+        "server_response": "Доставлено"
     }
 }
 ]
